@@ -6,8 +6,8 @@ def readfile(filename):
             data = line.strip().split(',')
     rtn = []
     for line in data:
-        spt = [int(line.split('-')[0]), int(line.split('-')[1])]
-        rtn += [spt]
+        splt = line.split('-')
+        rtn += [[int(splt[0]), int(splt[1])]]
     return rtn
 
 def main():
