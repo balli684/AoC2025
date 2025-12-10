@@ -1,5 +1,3 @@
-import math
-
 def readfile(filename):
     with open(filename, 'r') as file:
         for line in file:
@@ -17,7 +15,6 @@ def main():
         for i in range(line[0], line[1]+1):
             j = str(i)
             mid = (len(j) + 1) // 2
-            # print(j[:mid], j[mid:])
             if j[:mid] == j[mid:]:
                 result += i
     print(result)

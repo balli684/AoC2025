@@ -1,5 +1,3 @@
-import math
-
 def readfile(filename):
     with open(filename, 'r') as file:
         data = [line.strip() for line in file]
