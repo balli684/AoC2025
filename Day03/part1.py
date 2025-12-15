@@ -11,7 +11,6 @@ def main():
     for line in data:
         ten = 0
         for position in (range(len(line)-1)):
-            # print(line[position], line[position + 1])
             number = int(line[position])
             if number > ten:
                 ten = number

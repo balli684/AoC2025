@@ -8,20 +8,20 @@ def readfile(filename):
 def main():
     data = readfile('input.txt')
     output = 0
+    batteries = 12
+    
     for line in data:
-        ten = 0
-        for position in (range(len(line)-1)):
-            # print(line[position], line[position + 1])
-            number = int(line[position])
-            if number > ten:
-                ten = number
-                tenposition = position
-        one = 0
-        for position in (range(tenposition + 1, len(line))):
-            number = int(line[position])
-            if number > one:
-                one = number
-        output += ten * 10 + one
+        start = 0
+        for i in range(batteries, 0, -1):
+            max = 0
+            # print("Battery ", i)
+            for position in range(start, len(line) + 1 - i):
+                # print(position, max)
+                number = int(line[position])
+                if number > max:
+                    max = number
+                    start = position + 1
+            output += max * (10 ** (i - 1))
     print(output)
 
 if __name__ == '__main__':
