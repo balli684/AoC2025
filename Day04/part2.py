@@ -9,31 +9,40 @@ def readfile(filename):
     return data
 
 def main():
-    data = readfile('input.txt')
+    state = readfile('input.txt')
+    newstate = state.copy()
     output = 0
-    for y in range(1, len(data) - 1):
-        
-        for x in range(1, len(data[y]) - 1):
-            count = 0
-            if data[y][x] == "@":
-                if data[y-1][x-1] == "@":
-                    count += 1
-                if data[y-1][x] == "@":
-                    count += 1
-                if data[y-1][x+1] == "@":
-                    count += 1
-                if data[y][x-1] == "@":
-                    count += 1
-                if data[y][x+1] == "@":
-                    count += 1
-                if data[y+1][x-1] == "@":
-                    count += 1
-                if data[y+1][x] == "@":
-                    count += 1
-                if data[y+1][x+1] == "@":
-                    count += 1 
-                if count < 4:
-                    output += 1
+    changed = True
+    while changed:
+        remove = 0
+        for y in range(1, len(state) - 1):
+            for x in range(1, len(state[y]) - 1):
+                count = 0
+                if state[y][x] == "@":
+                    if state[y-1][x-1] == "@":
+                        count += 1
+                    if state[y-1][x] == "@":
+                        count += 1
+                    if state[y-1][x+1] == "@":
+                        count += 1
+                    if state[y][x-1] == "@":
+                        count += 1
+                    if state[y][x+1] == "@":
+                        count += 1
+                    if state[y+1][x-1] == "@":
+                        count += 1
+                    if state[y+1][x] == "@":
+                        count += 1
+                    if state[y+1][x+1] == "@":
+                        count += 1 
+                    if count < 4:
+                        remove += 1
+                        newstate[y] = newstate[y][:x] + "x" + newstate[y][x+1:]
+        output += remove
+        if remove == 0:
+            changed = False
+        state = newstate.copy() 
+
     print(output)
             
         
