@@ -31,17 +31,45 @@ def sort_ranges(ranges):
         end = int(parts[1])
         sorted.append((start, end))
     sorted.sort(key=lambda x: x[0])
-    return sorted
+    return list(dict.fromkeys(sorted))
+
+def check_overlap(list_in):
+    new_list = []
+    new_list.append(list_in[0])
+
+    for n in range(1, len(list_in)):
+        m = 0
+        start = list_in[n][0]
+        end = list_in[n][1]
+        while end >= start and m < n:
+            if list_in[m][0] <= start <= list_in[m][1] or list_in[m][0] <= end <= list_in[m][1]:
+                if start >= list_in[m][0] and end <= list_in[m][1]:
+                    start = 0
+                    end = 0
+                elif start >= list_in[m][0] and end > list_in[m][1]:
+                    start = list_in[m][1] + 1
+                elif start < list_in[m][0] and end <= list_in[m][1]:
+                    end = list_in[m][0] - 1
+            m += 1
+        if start > 0 and end > 0:
+            new_list.append((start, end))
+    new_list.sort(key=lambda x: x[0])
+
+    return list(dict.fromkeys(new_list))
 
 def main():
-    data = input().read_from_file('input.txt')
-    output = 0
-    for ingredient in data.ingredients:
-        for start, end in data.fresh:
-            if start <= ingredient <= end:
-                output += 1
-                break
-    print(output)
+    data = (input().read_from_file('input.txt')).fresh
+
+    checked = check_overlap(data)
+
+    count = 0
+    for item in checked:
+        count += item[1] - item[0] + 1
+
+    print(count)
+    
         
 if __name__ == '__main__':
     main()
+
+# 343143696885053
